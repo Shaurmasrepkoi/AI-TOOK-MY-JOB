@@ -62,7 +62,7 @@ h1, h2, p { margin: 0; }
 h1 { margin: .95rem 0 1.25rem; font-size: clamp(4.6rem, 8.9vw, 10.4rem); line-height: .85; font-weight: 950; letter-spacing: -.083em; }
 h1 em { color: var(--accent); font-style: normal; }
 .hero-copy { color: #d7e5da; font-size: clamp(1rem, 1.38vw, 1.27rem); line-height: 1.48; }
-.menu-actions { display: flex; gap: .67rem; margin-top: 1.88rem; }
+.menu-actions { display: flex; flex-wrap: wrap; gap: .67rem; margin-top: 1.88rem; }
 .primary, .secondary {
   min-height: 3.25rem; border-radius: 6px; padding: .62rem 1.15rem; display: inline-flex;
   justify-content: center; align-items: center; gap: .7rem; font-weight: 800; font-size: .96rem;
@@ -176,4 +176,21 @@ kbd { border: 1px solid #bfdbc675; color: #f8e0aa; border-radius: 3px; padding: 
   .scene-tag { display: none; }
   .toast { max-width: 44%; bottom: 1rem; }
   .touch-controls .joystick { width: 5.5rem; height: 5.5rem; }
+}
+
+.service-line { display: flex; gap: .85rem; margin: 0 0 .55rem; color: #b5d1c5; font: 700 .68rem var(--mono); }
+[data-focus="true"] .crosshair { width: 16px; height: 16px; background: transparent; border: 2px solid var(--accent); }
+.crosshair { transition: width 110ms, height 110ms, border-color 110ms; }
+.card button + button { margin-top: .65rem; }
+.card .primary + .secondary { margin-top: .65rem; }
+.preferences label { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: .8rem; margin-top: 1rem; color: var(--soft); }
+.preferences select { background: #243e41; color: #fff2d8; padding: .45rem; border: 1px solid #78918b; border-radius: 4px; }
+.preferences input { width: 100%; accent-color: var(--accent); }
+.card p.report-services { font-size: .82rem; color: #add9ca; }
+.overlay:not([hidden]) .card { animation: card-in 210ms ease-out both; }
+.toast:not([hidden]) { animation: toast-in 180ms ease-out both; }
+@keyframes card-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 5px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

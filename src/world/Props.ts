@@ -4,6 +4,7 @@ import { Prop } from '../interaction/Prop';
 import type { BoxSize, Physics } from '../physics/Physics';
 import { box, cylinder, glow } from '../rendering/Primitives';
 import { CARTRIDGE_POSITION } from './Office';
+import { FILTER_POSITION } from './OfficeStations';
 
 export function makeProps(scene: Object3D, physics: Physics): Prop[] {
   const spawn = (id: string, label: string, position: Vector3, size: BoxSize, draw: (mesh: Group) => void) => {
@@ -27,8 +28,14 @@ export function makeProps(scene: Object3D, physics: Physics): Prop[] {
     box(mesh, [0.075, 0.035, 0.048], 0.128, -0.045, 0, '#bf6d57');
     box(mesh, [0.03, 0.115, 0.045], 0.165, 0.007, 0, '#bf6d57');
   });
+  const filter = spawn('filter', 'Фильтр BREW-OPS', FILTER_POSITION, [0.24, 0.24, 0.24], (mesh) => {
+    cylinder(mesh, 0.11, 0.11, 0.23, 10, 0, 0, 0, '#557c7f');
+    cylinder(mesh, 0.12, 0.12, 0.04, 10, 0, 0.106, 0, '#ffd077');
+    cylinder(mesh, 0.12, 0.12, 0.04, 10, 0, -0.106, 0, '#ffd077');
+    glow(mesh, [0.069, 0.044, 0.009], 0, 0.015, 0.111, '#87f5cb');
+  });
   const packages = [[-4.75, -0.41], [-4.05, -0.53], [7.26, -6.48], [-5.15, -6.26]] as const;
-  return [cartridge, mug, ...packages.map(([x, z], index) => spawn(
+  return [cartridge, mug, filter, ...packages.map(([x, z], index) => spawn(
     `box-${index}`, 'Архивная коробка', new Vector3(x, 1.23, z), [0.42, 0.34, 0.38],
     (mesh) => {
       box(mesh, [0.42, 0.34, 0.38], 0, 0, 0, '#c29b6a');

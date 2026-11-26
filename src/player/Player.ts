@@ -7,6 +7,7 @@ export class Player {
   readonly body;
   readonly collider;
   private readonly controller;
+  stride = 0;
   private vertical = 0;
   private yaw = 0;
   private pitch = 0;
@@ -30,7 +31,7 @@ export class Player {
   }
 
   reset(): void {
-    this.vertical = 0;
+    this.vertical = this.stride = 0;
     this.yaw = 0;
     this.pitch = -0.015;
     this.grounded = false;
@@ -59,6 +60,7 @@ export class Player {
     }, undefined, GROUP.player);
     const corrected = this.controller.computedMovement();
     this.grounded = this.controller.computedGrounded();
+    this.stride = this.grounded ? Math.hypot(corrected.x, corrected.z) : 0;
     if (this.grounded && this.vertical < 0) this.vertical = -0.45;
     if (this.vertical > 0 && corrected.y < this.vertical * dt * 0.25) this.vertical = 0;
     const position = this.body.translation();
